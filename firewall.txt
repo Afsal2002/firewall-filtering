@@ -1,0 +1,86 @@
+sudo ufw enable -- ⚠️ This will start blocking/allowing based on rules.
+
+LIST OF THE PRESENT RULES
+
+sudo ufw status numbered
+
+Status: active
+
+RULE TO BLOCK INBOUND TRAFFIC ON A SPECIFIC PORT 23 (TELNET)
+
+sudo apt install telnet -y
+
+
+TRYING TO CONNECT TO PORT 23
+
+telnet localhost 23
+
+Trying ::1...
+Connection failed: Connection refused
+Trying 127.0.0.1...
+telnet: Unable to connect to remote host: Connection refused
+
+
+RULE TO ALLOW SSH (PORT 22)
+
+sudo ufw allow 22/tcp
+
+TEST BLOCK RULE TO RESTORE ORIGINAL STATE BY REMOVING
+
+sudo ufw delete deny 23/tcp
+
+
+COMMANDS
+
+Commands run (ufw allow, ufw deny, ufw status).
+
+
+
+A firewall acts like a security guard between your computer/network and the outside world.
+It decides whether to allow or block network packets based on rules.
+
+🔹 1. Packet Inspection
+
+Every piece of network communication is broken into packets.
+
+A firewall examines these packets (header + data).
+
+It checks:
+
+Source IP (where it came from)
+
+Destination IP (where it’s going)
+
+Protocol (TCP, UDP, ICMP, etc.)
+
+Port number (e.g., 80 for web, 22 for SSH, 23 for Telnet)
+
+🔹 2. Rule Matching
+
+Firewalls have a rule set (like an if-else list).
+
+Rules can say things like:
+
+Allow traffic to port 22 (SSH).
+
+Deny traffic from IP 203.0.113.5.
+
+Block all inbound Telnet (port 23).
+
+The firewall compares each packet to its rules from top to bottom until it finds a match.
+
+🔹 3. Filtering Methods
+
+Packet Filtering: Looks at packet headers only (fast but basic).
+
+Stateful Inspection: Tracks connections and only allows packets that are part of a valid session (more secure).
+
+Application Layer Filtering: Examines actual data (e.g., blocks malicious HTTP requests).
+
+🔹 4. Types of Filtering
+
+Inbound filtering: Controls traffic coming into your device/network. Example: Block Telnet (23) from outside.
+
+Outbound filtering: Controls traffic going out. Example: Stop malware from sending data to a hacker’s server.
+
+🔹 5. Example (UFW)
